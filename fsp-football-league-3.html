@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>FSP Football League</title>
+<style>
+:root{--gold:#d4af37;--bg:#080808;--panel:#141414;--muted:#aaa;--line:#302817}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f5f5f5;font-family:Arial,Helvetica,sans-serif}
+header{padding:24px 16px 18px;text-align:center;background:radial-gradient(ellipse at top,#34280b 0%,#101010 52%,#080808 100%);border-bottom:1px solid var(--line)}
+.crest{width:74px;height:84px;margin:0 auto 10px;border:3px solid var(--gold);clip-path:polygon(50% 0,94% 17%,88% 68%,50% 100%,12% 68%,6% 17%);display:grid;place-items:center;background:#111;color:var(--gold);font-weight:900;font-size:20px}
+h1{margin:0;color:var(--gold);letter-spacing:5px;font-size:clamp(30px,8vw,48px)}
+.tag{margin:6px 0 0;color:#ddd;letter-spacing:3px;font-size:12px}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px;background:#0e0e0e;position:sticky;top:0;z-index:2;border-bottom:1px solid #222}
+nav a{color:#eee;text-decoration:none;padding:9px 12px;border:1px solid #393020;border-radius:6px;font-size:13px}
+nav a:hover{background:var(--gold);color:#080808}
+main{max-width:900px;margin:auto;padding:18px 12px 40px}
+.hero{padding:24px 18px;border:1px solid #4d3b13;border-radius:12px;background:linear-gradient(130deg,#1a160b,#111 60%);margin-bottom:16px}
+.kicker{color:var(--gold);font-size:11px;letter-spacing:3px;font-weight:bold}
+.hero h2{font-size:28px;margin:8px 0}
+.hero p{color:#c8c8c8;line-height:1.5;margin-bottom:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.stat,.card{background:var(--panel);border:1px solid #282828;border-radius:10px;padding:14px}
+.stat strong{display:block;color:var(--gold);font-size:25px;margin-bottom:4px}
+.stat span{color:var(--muted);font-size:12px}
+section{margin-top:22px}
+h3{font-size:17px;letter-spacing:1px;border-left:3px solid var(--gold);padding-left:10px}
+.tablewrap{overflow-x:auto;border:1px solid #2b2b2b;border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:480px;font-size:13px}
+th,td{text-align:center;padding:11px 8px;border-bottom:1px solid #262626}
+th{color:var(--gold);background:#17140c;font-size:11px}
+td:first-child,th:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:#101010}
+.rank{color:var(--gold);font-weight:bold;width:28px}
+.matches{display:grid;gap:9px}
+.match{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#141414;border:1px solid #292929;border-radius:8px;padding:13px}
+.team{flex:1;font-weight:bold;font-size:13px}
+.team:last-child{text-align:right}
+.score{white-space:nowrap;background:#080808;border:1px solid #4c3a12;color:var(--gold);padding:8px 10px;border-radius:6px;font-weight:bold}
+.match small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px;font-weight:normal}
+.team:last-child small{text-align:right}
+.teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.teamcard{background:#141414;border:1px solid #292929;border-radius:8px;padding:13px}
+.teamcard b{color:var(--gold)}
+.note{color:#999;font-size:12px;line-height:1.5}
+footer{text-align:center;border-top:1px solid #292929;padding:22px 12px;color:#888;font-size:12px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.teams{grid-template-columns:repeat(3,minmax(0,1fr))}.hero h2{font-size:34px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="crest">FSP</div>
+  <h1>FSP</h1>
+  <p class="tag">FOOTBALL LEAGUE</p>
+</header>
+<nav>
+  <a href="#puan">Puan Durumu</a><a href="#fikstur">Fikstür</a><a href="#takimlar">Takımlar</a><a href="#istatistik">İstatistikler</a>
+</nav>
+<main>
+  <div class="hero">
+    <div class="kicker">KENDİ LİGİN • KENDİ TARİHİN</div>
+    <h2>DAHA FAZLASI İÇİN.</h2>
+    <p>FSP Football League'e hoş geldin. Takımların yarıştığı, her puanın önemli olduğu kendi futbol evrenin.</p>
+  </div>
+  <div class="grid" id="istatistik">
+    <div class="stat"><strong id="teamCount">6</strong><span>Takım</span></div>
+    <div class="stat"><strong id="matchCount">3</strong><span>Örnek maç</span></div>
+    <div class="stat"><strong id="playedCount">3</strong><span>Oynanan maç</span></div>
+    <div class="stat"><strong id="goalCount">9</strong><span>Toplam gol</span></div>
+  </div>
+  <section id="puan">
+    <h3>PUAN DURUMU</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th># / TAKIM</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th></tr></thead>
+      <tbody id="standings"></tbody>
+    </table></div>
+  </section>
+  <section id="fikstur">
+    <h3>SONUÇLAR & FİKSTÜR</h3>
+    <div class="matches" id="matches"></div>
+  </section>
+  <section id="takimlar">
+    <h3>TAKIMLAR</h3>
+    <div class="teams" id="teams"></div>
+  </section>
+  <p class="note">Bilgi: Bu sayfa örnek verilerle hazırlanmıştır. Takım adlarını ve maç sonuçlarını değiştirmek için HTML dosyasındaki teams ve matches bölümlerini düzenle. Bu ilk sürümde değişiklikler otomatik olarak internete kaydedilmez.</p>
+</main>
+<footer><div style="color:#d4af37;letter-spacing:3px;font-weight:bold">FSP • FOOTBALL LEAGUE</div><p>DAHA FAZLASI İÇİN</p></footer>
+<script>
+const teams = [
+  {name:"Kuzey FK", short:"KFK", city:"Kuzey"},
+  {name:"Altınordu 21", short:"A21", city:"Altınşehir"},
+  {name:"Yıldız Spor", short:"YSP", city:"Yıldızkent"},
+  {name:"Demir FC", short:"DFC", city:"Demirova"},
+  {name:"Kartal Gençlik", short:"KG", city:"Kartaltepe"},
+  {name:"Ateş United", short:"AU", city:"Ateşova"}
+];
+// Örnek skorlar: takımların isimlerini ve skorları aşağıdan değiştirebilirsin.
+const matches = [
+  {week:1, home:"Kuzey FK", away:"Altınordu 21", hs:2, as:1},
+  {week:1, home:"Yıldız Spor", away:"Demir FC", hs:1, as:1},
+  {week:1, home:"Kartal Gençlik", away:"Ateş United", hs:3, as:1}
+];
+const stats = Object.fromEntries(teams.map(t=>[t.name,{...t,p:0,o:0,g:0,b:0,m:0,av:0,ag:0,yg:0}]));
+for(const m of matches){
+  if(m.hs===null || m.as===null) continue;
+  const h=stats[m.home], a=stats[m.away];
+  if(!h||!a) continue;
+  h.o++;a.o++;h.ag+=m.hs;h.yg+=m.as;a.ag+=m.as;a.yg+=m.hs;
+  h.av=h.ag-h.yg;a.av=a.ag-a.yg;
+  if(m.hs>m.as){h.g++;h.p+=3;a.m++}
+  else if(m.hs<m.as){a.g++;a.p+=3;h.m++}
+  else{h.b++;a.b++;h.p++;a.p++}
+}
+const ranking=Object.values(stats).sort((a,b)=>b.p-a.p||b.av-a.av||b.ag-a.ag||a.name.localeCompare(b.name,"tr"));
+document.getElementById("standings").innerHTML=ranking.map((t,i)=>`<tr><td><span class="rank">${i+1}</span> ${t.name}</td><td>${t.o}</td><td>${t.g}</td><td>${t.b}</td><td>${t.m}</td><td>${t.av>0?"+":""}${t.av}</td><td><b>${t.p}</b></td></tr>`).join("");
+document.getElementById("matches").innerHTML=matches.map(m=>`<div class="match"><div class="team"><small>${m.week}. HAFTA</small>${m.home}</div><div class="score">${m.hs===null?"-":m.hs+" : "+m.as}</div><div class="team"><small>${m.hs===null?"FİKSTÜR":"TAMAMLANDI"}</small>${m.away}</div></div>`).join("");
+document.getElementById("teams").innerHTML=teams.map(t=>`<div class="teamcard"><b>${t.short}</b><div>${t.name}</div><span class="note">${t.city}</span></div>`).join("");
+document.getElementById("teamCount").textContent=teams.length;
+document.getElementById("matchCount").textContent=matches.length;
+document.getElementById("playedCount").textContent=matches.filter(m=>m.hs!==null&&m.as!==null).length;
+document.getElementById("goalCount").textContent=matches.reduce((n,m)=>n+(m.hs??0)+(m.as??0),0);
+</script>
+</body>
+</html>
